@@ -1,0 +1,22 @@
+
+Recordar que en el scratch se encuentran los folder: 
+
+
+
+EnKS_MC_LOTOS  --> Plots sobre states and dc of each of the city plots
+
+EnKS_MC_LOTOS_V2  -->  Calculate cholesky for the states, the parameters and the combination of both
+
+EnKS_MC_LOTOS_V2_locate_background2D  -->  Concatenate and plot the time series for dc and concentrations and prepare the snapshots for the parameters and states
+
+EnKS_MC_LOTOS_V2_ENKF  --> Regresa las covarianzas al dominio 2D
+
+
+
+Plot_satelites  -->  Generate plots of the satellite for the North Domain
+
+Plot_satellites_compare  -->  comparison with the Columns of the satellite tropomi INNOVATION  generando problemas
+
+Plot_satellte_sigmas_saving  -->  ERROR PLOTS
+
+

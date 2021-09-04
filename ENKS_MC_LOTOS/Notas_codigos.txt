@@ -1,0 +1,9 @@
+el primer código que se debe correr es RunEnKS_MC.sh
+
+
+
+Sobre los tiempos de computo
+
+RunEnKS_MC.sh    --> works for run ensemble of the model
+
+Merging_dc.sh    --> works in this case for concatenate the dc
