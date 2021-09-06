@@ -19,4 +19,16 @@ Plot_satellites_compare  -->  comparison with the Columns of the satellite tropo
 
 Plot_satellte_sigmas_saving  -->  ERROR PLOTS
 
+#################################################################################################################################################################
+Sobre los datos satelitales
+
+
+Aquí estan los archivos que funcionan:
+
+/run/media/dirac/Datos/New_EMIP_TAMMO/EMIP/v1.2/proj/lotos-euros/rc
+
+
+Para lanzarlo se debe utilizar el siguiente comando:
+
+./bin/emip  proj/lotos-euros/rc/emip.rc
 

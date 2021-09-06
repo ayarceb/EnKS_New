@@ -31,7 +31,7 @@ then
 	rm ${LE}/proj/eafit/000/rc/timerange.rc
 fi	
 start_date=20190202
-echo 'timerange.start     :  2019-02-01 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
+echo 'timerange.start     :  2019-02-01 16:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 echo 'timerange.end       :  2019-02-05 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 
 #===Number of Ensembles===

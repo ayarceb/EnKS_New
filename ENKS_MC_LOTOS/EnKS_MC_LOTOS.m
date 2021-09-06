@@ -1,7 +1,7 @@
 % Code to run the experiment for the LOTOS-EUROS EnKS-MC
 % This code run from matlab the LOTOS-EUROS performing a EnKS-MC Data
 % assimilation scheme
-% first task: Assimilate with the synthetic NO2 columns
+
 
 
 % the bash file RunLEKF.sh configurate the run and launch the lekf with the emission factor perturbation 
