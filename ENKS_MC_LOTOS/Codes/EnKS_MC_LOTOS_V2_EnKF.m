@@ -1,8 +1,8 @@
 % Code to implement the EnKS_MC technique with the LOTOS-EUROS
 
 clc;close all;clear all
-addpath('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC')  
-% Variable characteristics    Size no2:       59x63x1x97
+addpath('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new')  
+% Variable characteristics    Size no2:       58x63x1x97
 %                             Dimensions: longitude,latitude,level,time
 %                             Datatype:   single
 %                    Attributes:
@@ -13,7 +13,7 @@ addpath('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC')
 %                       molemass        = 0.046005
 %                       molemass_unit   = 'kg mole-1'
 
-% Coordinates for the 59x63 array.
+% Coordinates for the 58x63 array.
 % Coordenadas        (latitude,longitude)
 % Barranquilla       Latitud: 10.9878,    Longitud: -74.7889      (33,20)
 % Santa Marta        Latitud: 11.24079,   Longitud: -74.19904      (37,26)
@@ -25,30 +25,16 @@ ciudades={'Barranquilla ','Santa Marta ','Cartagena ','Mina Drummond ','Valledup
 
 lon=[20,26,12,35,36];lat=[33,37,27,18,27];
 
-name_run='Prueba_numero_4_EnKS_MC';
+name_run='Prueba_numero_6_EnKS_MC';
 
-
-
-
-mydir='/run/media/dirac/Datos/scratch/projects/Prueba_numero_4_EnKS_MC/Prueba_numero_4_EnKS_MC/output';
+mydir='/run/media/dirac/Datos/scratch/projects/Prueba_numero_6_EnKS_MC/Prueba_numero_6_EnKS_MC/output';
 cd(mydir)
 
-lati=ncread('LE_Prueba_numero_4_EnKS_MC_column_20190205_xi02a.nc','latitude');
-long=ncread('LE_Prueba_numero_4_EnKS_MC_column_20190205_xi02a.nc','longitude');
+lati=ncread('LE_Prueba_numero_6_EnKS_MC_column_20190205_xi02a.nc','latitude');
+long=ncread('LE_Prueba_numero_6_EnKS_MC_column_20190205_xi02a.nc','longitude');
 
-mydir='/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC/ENKS_MC_LOTOS/Codes';
+mydir='/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new/ENKS_MC_LOTOS/Codes';
 cd(mydir)
-
-
-
-
-
-
-
-
-
-
-
 
 
 %%===Path where the output are located from the EnKS_MC ensemble first propagation
@@ -56,14 +42,14 @@ mydir=append('/run/media/dirac/Datos/scratch/projects/',name_run,'/',name_run,'/
 
 system('rm no2_column_ens*.nc');system('rm Merge_*.nc'); system('rm Ens_dc_*.nc');
 cd ..
-system('mv LE_Prueba_numero_4_EnKS_MC_dc_*.nc output')
+system('mv LE_Prueba_numero_6_EnKS_MC_dc_*.nc output')
 mydir=append('/run/media/dirac/Datos/scratch/projects/',name_run,'/',name_run,'/output');cd(mydir)
 
 
-no2=zeros(45,52,97,40); no2_dc=zeros(45,52,97,40);
-%no2=zeros(59,63,97,40); no2_dc=zeros(59,63,97,40);
+%no2=zeros(45,52,97,40); no2_dc=zeros(45,52,97,40);
+no2=zeros(59,63,81,40); no2_dc=zeros(59,63,81,40);
 
-t1 = datetime(2019,2,1,0,0,0);t2 = datetime(2019,2,5,0,0,0);t = t1:hours(1):t2;
+t1 = datetime(2019,2,1,16,0,0);t2 = datetime(2019,2,5,0,0,0);t = t1:hours(1):t2;
 
 
 ens=40; %NO2_sfc Ensemble number concatenate
@@ -102,7 +88,7 @@ title(append(ciudades{j}, sprintf('lat= %1.2f ',latitude(j)),'°', sprintf('lon=
 legend([h,p],'Ensemble members','Mean');
 end
 
-mydir=append('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC/ENKS_MC_LOTOS');cd(mydir)
+mydir=append('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new/ENKS_MC_LOTOS');cd(mydir)
 
 system('./Merging_dc.sh')  % Bash code to merge dc factors
 
@@ -247,32 +233,34 @@ mydir=append('/run/media/dirac/Datos/scratch/projects/',name_run,'/',name_run,'/
 
 %% States + parameteres
 % parameters
+t_index=81;
+
 NO2_dc_0=squeeze(no2_dc(:,:,1,:));
 NO2_dc_1=squeeze(no2_dc(:,:,17,:));
 NO2_dc_2=squeeze(no2_dc(:,:,41,:));
 NO2_dc_3=squeeze(no2_dc(:,:,65,:));
-NO2_dc_4=squeeze(no2_dc(:,:,89,:));
+NO2_dc_4=squeeze(no2_dc(:,:,t_index,:));
 
 NO2_dc_0_mean=mean(squeeze(no2_dc(:,:,1,:)),3);
 NO2_dc_1_mean=mean(squeeze(no2_dc(:,:,17,:)),3);
 NO2_dc_2_mean=mean(squeeze(no2_dc(:,:,41,:)),3);
 NO2_dc_3_mean=mean(squeeze(no2_dc(:,:,65,:)),3);
-NO2_dc_4_mean=mean(squeeze(no2_dc(:,:,89,:)),3);
+NO2_dc_4_mean=mean(squeeze(no2_dc(:,:,t_index,:)),3);
 
 
-NNO2_dc_0_mean=reshape(NO2_dc_0_mean,45*52,1);
-NNO2_dc_1_mean=reshape(NO2_dc_1_mean,45*52,1);
-NNO2_dc_2_mean=reshape(NO2_dc_2_mean,45*52,1);
-NNO2_dc_3_mean=reshape(NO2_dc_3_mean,45*52,1);
-NNO2_dc_4_mean=reshape(NO2_dc_4_mean,45*52,1);
+NNO2_dc_0_mean=reshape(NO2_dc_0_mean,59*63,1);
+NNO2_dc_1_mean=reshape(NO2_dc_1_mean,59*63,1);
+NNO2_dc_2_mean=reshape(NO2_dc_2_mean,59*63,1);
+NNO2_dc_3_mean=reshape(NO2_dc_3_mean,59*63,1);
+NNO2_dc_4_mean=reshape(NO2_dc_4_mean,59*63,1);
 
 
 
-NNO2_dc_0=reshape(NO2_dc_0,45*52,40);
-NNO2_dc_1=reshape(NO2_dc_1,45*52,40);
-NNO2_dc_2=reshape(NO2_dc_2,45*52,40);
-NNO2_dc_3=reshape(NO2_dc_3,45*52,40);
-NNO2_dc_4=reshape(NO2_dc_4,45*52,40);
+NNO2_dc_0=reshape(NO2_dc_0,59*63,40);
+NNO2_dc_1=reshape(NO2_dc_1,59*63,40);
+NNO2_dc_2=reshape(NO2_dc_2,59*63,40);
+NNO2_dc_3=reshape(NO2_dc_3,59*63,40);
+NNO2_dc_4=reshape(NO2_dc_4,59*63,40);
 
 %states
 
@@ -281,31 +269,31 @@ NO2_state_0=squeeze(NO2_state(:,:,1,:));
 NO2_state_1=squeeze(NO2_state(:,:,17,:));
 NO2_state_2=squeeze(NO2_state(:,:,41,:));
 NO2_state_3=squeeze(NO2_state(:,:,65,:));
-NO2_state_4=squeeze(NO2_state(:,:,89,:));
+NO2_state_4=squeeze(NO2_state(:,:,t_index,:));
 
 
 NO2_state_0_mean=mean(squeeze(NO2_state(:,:,1,:)),3);
 NO2_state_1_mean=mean(squeeze(NO2_state(:,:,17,:)),3);
 NO2_state_2_mean=mean(squeeze(NO2_state(:,:,41,:)),3);
 NO2_state_3_mean=mean(squeeze(NO2_state(:,:,65,:)),3);
-NO2_state_4_mean=mean(squeeze(NO2_state(:,:,89,:)),3);
+NO2_state_4_mean=mean(squeeze(NO2_state(:,:,t_index,:)),3);
 
 
 
-NNO2_state_0_mean=reshape(NO2_state_0_mean,45*52,1);
-NNO2_state_1_mean=reshape(NO2_state_1_mean,45*52,1);
-NNO2_state_2_mean=reshape(NO2_state_2_mean,45*52,1);
-NNO2_state_3_mean=reshape(NO2_state_3_mean,45*52,1);
-NNO2_state_4_mean=reshape(NO2_state_4_mean,45*52,1);
+NNO2_state_0_mean=reshape(NO2_state_0_mean,59*63,1);
+NNO2_state_1_mean=reshape(NO2_state_1_mean,59*63,1);
+NNO2_state_2_mean=reshape(NO2_state_2_mean,59*63,1);
+NNO2_state_3_mean=reshape(NO2_state_3_mean,59*63,1);
+NNO2_state_4_mean=reshape(NO2_state_4_mean,59*63,1);
 
 
 
 
-NNO2_state_0=reshape(NO2_state_0,45*52,40);
-NNO2_state_1=reshape(NO2_state_1,45*52,40);
-NNO2_state_2=reshape(NO2_state_2,45*52,40);
-NNO2_state_3=reshape(NO2_state_3,45*52,40);
-NNO2_state_4=reshape(NO2_state_4,45*52,40);
+NNO2_state_0=reshape(NO2_state_0,59*63,40);
+NNO2_state_1=reshape(NO2_state_1,59*63,40);
+NNO2_state_2=reshape(NO2_state_2,59*63,40);
+NNO2_state_3=reshape(NO2_state_3,59*63,40);
+NNO2_state_4=reshape(NO2_state_4,59*63,40);
 
 
 
@@ -367,7 +355,7 @@ imagesc(cov_4_state);colorbar;caxis([0 1e-19]);colormap(jet);title('L 4 Covarian
 
 figure
 %     i
- imagesc(long,lati,reshape(cov_4_state(500,:),[45,52])');colorbar;caxis([0 1e-19]);colormap(cool)
+ imagesc(long,lati,reshape(cov_4_state(500,:),[59,63])');colorbar;caxis([0 1e-19]);colormap(cool)
 
 
 set(gca,'YDir','normal'); hold on
@@ -389,11 +377,11 @@ colorbar;
 
 figure
 for i=1:9
-number_state=number_state_(i);lati_state=number_state/45;
+number_state=number_state_(i);lati_state=number_state/59;
 subplot(3,3,i)
-imagesc(long,lati,reshape(cov_4_state(number_state,:),[45,52])');colorbar;caxis([0 1e-19]);colormap(cool)
+imagesc(long,lati,reshape(cov_4_state(number_state,:),[59,63])');colorbar;caxis([0 1e-19]);colormap(cool)
 hold on
-s=scatter(long(number_state-45*floor(lati_state)),lati(floor(lati_state)),100,'s','MarkerEdgeColor',[1 1 1],...
+s=scatter(long(number_state-59*floor(lati_state)),lati(floor(lati_state)),100,'s','MarkerEdgeColor',[1 1 1],...
               'MarkerFaceColor',[ 0 0 0],...
               'LineWidth',1.5,'MarkerFaceAlpha',.8,'MarkerEdgeAlpha',.8); 
 set(gca,'YDir','normal'); hold on
@@ -431,11 +419,18 @@ end
 % subplot(2,3,3);imagesc(B_state_dc_lag2);colorbar;caxis([0 1e-23]);colormap(jet);title('L 2');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
 % subplot(2,3,4);imagesc(B_state_dc_lag3);colorbar;caxis([0 1e-24]);colormap(jet);title('L 3');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
 % subplot(2,3,5);imagesc(B_state_dc_lag4);colorbar;caxis([0 1e-25]);colormap(jet);title('L 4');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
+
+% states_lag0=[NNO2_state_0];
+% states_lag1=[NNO2_state_0;NNO2_state_1];
+% states_lag2=[NNO2_state_0;NNO2_state_1;NNO2_state_2];
+% states_lag3=[NNO2_state_0;NNO2_state_1;NNO2_state_2;NNO2_state_3];
+% states_lag4=[NNO2_state_0;NNO2_state_1;NNO2_state_2;NNO2_state_3;NNO2_state_4];
+
 states_lag0=[NNO2_state_0];
-states_lag1=[NNO2_state_0;NNO2_state_1];
-states_lag2=[NNO2_state_0;NNO2_state_1;NNO2_state_2];
-states_lag3=[NNO2_state_0;NNO2_state_1;NNO2_state_2;NNO2_state_3];
-states_lag4=[NNO2_state_0;NNO2_state_1;NNO2_state_2;NNO2_state_3;NNO2_state_4];
+states_lag1=[NNO2_state_1];
+states_lag2=[NNO2_state_2];
+states_lag3=[NNO2_state_3];
+states_lag4=[NNO2_state_4];
 
 
 
@@ -458,11 +453,11 @@ imagesc(B_state_lag4);colorbar;caxis([0 1e-16]);colormap(jet);title('L 4 Covaria
 
 figure
 for i=1:9
-number_state=number_state_(i);lati_state=number_state/45;
+number_state=number_state_(i);lati_state=number_state/59;
 subplot(3,3,i)
-imagesc(long,lati,reshape(B_state_lag4(number_state,:),[45,52])');colorbar;caxis([0 1e-17]);colormap(cool)
+imagesc(long,lati,reshape(B_state_lag4(number_state,:),[59,63])');colorbar;caxis([0 1e-17]);colormap(cool)
 hold on
-s=scatter(long(number_state-45*floor(lati_state)),lati(floor(lati_state)),100,'s','MarkerEdgeColor',[1 1 1],...
+s=scatter(long(number_state-59*floor(lati_state)),lati(floor(lati_state)),100,'s','MarkerEdgeColor',[1 1 1],...
               'MarkerFaceColor',[ 0 0 0],...
               'LineWidth',1.5,'MarkerFaceAlpha',.8,'MarkerEdgeAlpha',.8); 
 set(gca,'YDir','normal'); hold on
@@ -482,8 +477,8 @@ end
 %%
 
 figure(1)
-Xb=nan(45,52,97,40);
-Fe=nan(45,52,97,40);
+Xb=nan(59,63,97,40);
+Fe=nan(59,63,97,40);
 
 Xb_mean=nan(5,97);
 Fe_mean=nan(5,97);

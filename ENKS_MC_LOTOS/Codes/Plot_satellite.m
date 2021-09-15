@@ -1,27 +1,35 @@
 % code to plot the satellite files from the TROPOMI simulation of the
 % EnKS-MC paper
 
-clc;close all;clear all
-
-mydir='/run/media/dirac/Datos/scratch/projects/Prueba_numero_4_EnKS_MC/Prueba_numero_4_EnKS_MC/output';
-cd(mydir)
-
-
+clc;clear all
+% close all
 
 date={'2019-02-01','2019-02-02','2019-02-03','2019-02-03','2019-02-04'};
 tit={'NO_2 LOTOS-EUROS Column','Vertical column density','Simulated retrieval'};
 
+
+mydir='/run/media/dirac/Datos/scratch/projects/Prueba_numero_4_EnKS_MC/Prueba_numero_4_EnKS_MC/output';
+cd(mydir)
 files={'LE_Prueba_numero_4_EnKS_MC_tropomi-no2_20190201_1800.nc','LE_Prueba_numero_4_EnKS_MC_tropomi-no2_20190202_1800.nc',...
     'LE_Prueba_numero_4_EnKS_MC_tropomi-no2_20190203_1800.nc','LE_Prueba_numero_4_EnKS_MC_tropomi-no2_20190203_1900.nc',...
     'LE_Prueba_numero_4_EnKS_MC_tropomi-no2_20190204_1900.nc'};
-
 filesbase={'LE_Prueba_numero_4_EnKS_MC_column_20190201_xb.nc','LE_Prueba_numero_4_EnKS_MC_column_20190202_xb.nc',...
     'LE_Prueba_numero_4_EnKS_MC_column_20190203_xb.nc','LE_Prueba_numero_4_EnKS_MC_column_20190203_xb.nc',...
     'LE_Prueba_numero_4_EnKS_MC_column_20190204_xb.nc'};
 
-random_n=[1000,1500,2000];
 
+% mydir='/run/media/dirac/Datos/scratch/projects/Prueba_numero_6_EnKS_MC/Prueba_numero_6_EnKS_MC/output';
+% cd(mydir)
+% files={'LE_Prueba_numero_6_EnKS_MC_tropomi-no2_20190201_1800.nc','LE_Prueba_numero_6_EnKS_MC_tropomi-no2_20190202_1800.nc',...
+%     'LE_Prueba_numero_6_EnKS_MC_tropomi-no2_20190203_1800.nc','LE_Prueba_numero_6_EnKS_MC_tropomi-no2_20190203_1900.nc',...
+%     'LE_Prueba_numero_6_EnKS_MC_tropomi-no2_20190204_1900.nc'};
+% filesbase={'LE_Prueba_numero_6_EnKS_MC_column_20190201_xb.nc','LE_Prueba_numero_6_EnKS_MC_column_20190202_xb.nc',...
+%     'LE_Prueba_numero_6_EnKS_MC_column_20190203_xb.nc','LE_Prueba_numero_6_EnKS_MC_column_20190203_xb.nc',...
+%     'LE_Prueba_numero_6_EnKS_MC_column_20190204_xb.nc'};
 
+random_n=[20,1500,2000];
+
+figure
 cont=1;
 for k=1:3
 for i=1:5
@@ -70,8 +78,8 @@ end
 
 imagesc(lon,lat,Y_Tropomi'); colormap jet;set(gca,'YDir','normal'); hold on
 
-S=shaperead('/run/media/dirac/Datos/Real_DROPBOX/Dropbox/2017/Doctorado/SIG/05_ANTIOQUIA_/ADMINISTRATIVO/MGN_ADM_DPTO_POLITICO.shp');
-hold on; mapshow(S,'FaceAlpha',0, 'LineWidth',1)
+% S=shaperead('/run/media/dirac/Datos/Real_DROPBOX/Dropbox/2017/Doctorado/SIG/05_ANTIOQUIA_/ADMINISTRATIVO/MGN_ADM_DPTO_POLITICO.shp');
+% hold on; mapshow(S,'FaceAlpha',0, 'LineWidth',1)
 S1=shaperead('/run/media/dirac/Datos/Reciente_Dropbox/2018/SIG/MAUI.LatinAmerica.EPSG4326/MAUI.LatinAmerica.EPSG4326.shp')
 mapshow(S1,'facealpha',0)
   
@@ -121,8 +129,8 @@ Sum_trop=Y_Tropomi+Y_Tropomi_2;Sum_trop(Sum_trop==0)=NaN;
  imagesc(lon,lat,(Sum_trop)'); colormap jet; % axis xy; 
 set(gca,'YDir','normal'); hold on
 
-S=shaperead('/run/media/dirac/Datos/Real_DROPBOX/Dropbox/2017/Doctorado/SIG/05_ANTIOQUIA_/ADMINISTRATIVO/MGN_ADM_DPTO_POLITICO.shp');
-hold on; mapshow(S,'FaceAlpha',0, 'LineWidth',1)
+% S=shaperead('/run/media/dirac/Datos/Real_DROPBOX/Dropbox/2017/Doctorado/SIG/05_ANTIOQUIA_/ADMINISTRATIVO/MGN_ADM_DPTO_POLITICO.shp');
+% hold on; mapshow(S,'FaceAlpha',0, 'LineWidth',1)
 S1=shaperead('/run/media/dirac/Datos/Reciente_Dropbox/2018/SIG/MAUI.LatinAmerica.EPSG4326/MAUI.LatinAmerica.EPSG4326.shp')
 mapshow(S1,'facealpha',0)
   

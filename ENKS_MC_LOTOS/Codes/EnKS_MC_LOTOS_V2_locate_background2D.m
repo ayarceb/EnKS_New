@@ -2,7 +2,7 @@
 % time series of the files concatenated first for the sites of interest
 
 clc;close all;clear all
-addpath('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC')  
+addpath('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new')  
 % Variable characteristics from the simulated files    Size no2:       59x63x1x97
 %                                                      Dimensions: longitude,latitude,level,time
 %                                                      Datatype:   single
@@ -26,7 +26,7 @@ ciudades={'Barranquilla ','Santa Marta ','Cartagena ','Mina Drummond ','Valledup
 
 lon=[20,26,12,35,36];lat=[33,37,27,18,27];
 
-name_run='Prueba_numero_4_EnKS_MC';
+name_run='Prueba_numero_6_EnKS_MC';
 
 %%===Path where the output are located from the EnKS_MC ensemble first propagation
 
@@ -35,16 +35,16 @@ mydir=append('/run/media/dirac/Datos/scratch/projects/',name_run,'/',name_run,'/
 
 system('rm no2_column_ens*.nc');system('rm Merge_*.nc'); system('rm Ens_dc_*.nc');
 cd ..
-system('mv LE_Prueba_numero_4_EnKS_MC_dc_*.nc output')
+system('mv LE_Prueba_numero_6_EnKS_MC_dc_*.nc output')
 mydir=append('/run/media/dirac/Datos/scratch/projects/',name_run,'/',name_run,'/output');cd(mydir)
 %%%
 
 
-no2=zeros(59,63,97,40); no2_dc=zeros(59,63,97,40);
+no2=zeros(59,63,81,40); no2_dc=zeros(59,63,81,40);
 
 % Generate time frame domain
 
-t1 = datetime(2019,2,1,0,0,0);t2 = datetime(2019,2,5,0,0,0);t = t1:hours(1):t2;
+t1 = datetime(2019,2,1,16,0,0);t2 = datetime(2019,2,5,0,0,0);t = t1:hours(1):t2;
 
 
 %%% NO2_sfc LOTOS-EUROS simulated variable concatenation step
@@ -100,7 +100,7 @@ title(append(ciudades{j}, sprintf('lat= %1.2f ',latitude(j)),'°', sprintf('lon=
  legend([Q,p],'Ensemble members','Mean');
 end
 
-mydir=append('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC/ENKS_MC_LOTOS');cd(mydir)
+mydir=append('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new/ENKS_MC_LOTOS');cd(mydir)
 
 system('./Merging_dc.sh')  % Bash code to merge dc factors
 
@@ -255,7 +255,7 @@ NO2_dc_0=squeeze(no2_dc(:,:,1,:));
 NO2_dc_1=squeeze(no2_dc(:,:,17,:));
 NO2_dc_2=squeeze(no2_dc(:,:,41,:));
 NO2_dc_3=squeeze(no2_dc(:,:,65,:));
-NO2_dc_4=squeeze(no2_dc(:,:,89,:));
+NO2_dc_4=squeeze(no2_dc(:,:,81,:));
 
 NNO2_dc_0=reshape(NO2_dc_0,59*63,40);
 NNO2_dc_1=reshape(NO2_dc_1,59*63,40);
@@ -268,7 +268,7 @@ NO2_state_0=squeeze(NO2_state(:,:,1,:));
 NO2_state_1=squeeze(NO2_state(:,:,17,:));
 NO2_state_2=squeeze(NO2_state(:,:,41,:));
 NO2_state_3=squeeze(NO2_state(:,:,65,:));
-NO2_state_4=squeeze(NO2_state(:,:,89,:));
+NO2_state_4=squeeze(NO2_state(:,:,81,:));
 
 NNO2_state_0=reshape(NO2_state_0,59*63,40);
 NNO2_state_1=reshape(NO2_state_1,59*63,40);
@@ -280,10 +280,10 @@ NNO2_state_4=reshape(NO2_state_4,59*63,40);
 
 figure
 state_dc_lag0=[NNO2_state_0;NNO2_dc_0(1,:)];
-state_dc_lag1=[NNO2_state_0;NNO2_dc_0(1,:);NNO2_state_1;NNO2_dc_1(1,:)];
-state_dc_lag2=[NNO2_state_0;NNO2_dc_0(1,:);NNO2_state_1;NNO2_dc_1(1,:);NNO2_state_2;NNO2_dc_2(1,:)];
-state_dc_lag3=[NNO2_state_0;NNO2_dc_0(1,:);NNO2_state_1;NNO2_dc_1(1,:);NNO2_state_2;NNO2_dc_2(1,:);NNO2_state_3;NNO2_dc_3(1,:)];
-state_dc_lag4=[NNO2_state_0;NNO2_dc_0(1,:);NNO2_state_1;NNO2_dc_1(1,:);NNO2_state_2;NNO2_dc_2(1,:);NNO2_state_3;NNO2_dc_3(1,:);NNO2_state_4;NNO2_dc_4(1,:)];
+state_dc_lag1=[NNO2_state_1;NNO2_dc_1(1,:)];
+state_dc_lag2=[NNO2_state_2;NNO2_dc_2(1,:)];
+state_dc_lag3=[NNO2_state_3;NNO2_dc_3(1,:)];
+state_dc_lag4=[NNO2_state_4;NNO2_dc_4(1,:)];
 
 
 %  B_state_dc_lag0=Calculo_B_Cholesky(state_dc_lag0,1);
@@ -294,10 +294,10 @@ state_dc_lag4=[NNO2_state_0;NNO2_dc_0(1,:);NNO2_state_1;NNO2_dc_1(1,:);NNO2_stat
 
 
 % subplot(2,3,1);imagesc(B_state_dc_lag0);colorbar;caxis([0 1e-15]);colormap(jet);title('L 0');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
- subplot(2,3,2);imagesc(B_state_dc_lag1);colorbar;caxis([0 1e-22]);colormap(jet);title('L 1');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
+% subplot(2,3,2);imagesc(B_state_dc_lag1);colorbar;caxis([0 1e-22]);colormap(jet);title('L 1');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
 % subplot(2,3,3);imagesc(B_state_dc_lag2);colorbar;caxis([0 1e-23]);colormap(jet);title('L 2');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
 % subplot(2,3,4);imagesc(B_state_dc_lag3);colorbar;caxis([0 1e-24]);colormap(jet);title('L 3');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
-%subplot(2,3,5);imagesc(B_state_dc_lag4);colorbar;caxis([0 1e-25]);colormap(jet);title('L 4');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
+subplot(2,3,5);imagesc(B_state_dc_lag4);colorbar;caxis([0 1e-25]);colormap(jet);title('L 4');xlabel('states + DC Factor parameter');ylabel('states + DC Factor parameter')
 
 
 %%

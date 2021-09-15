@@ -1,7 +1,25 @@
 
-Recordar que en el scratch se encuentran los folder: 
+1)  Primer paso se descargan, mapean y simulan los datos satelitales
+
+Aquí estan los archivos que funcionan:
+
+/run/media/dirac/Datos/New_EMIP_TAMMO/EMIP/v1.2/proj/lotos-euros/rc
+
+Para lanzarlo se debe utilizar el siguiente comando:
+
+./bin/emip  proj/lotos-euros/rc/emip.rc
 
 
+################################################################################################################################################################
+
+
+2) Correr el ensamble: Folder donde está el ejecutable
+
+/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC/ENKS_MC_LOTOS   Con este ejecutable RunEnKS_MC.sh
+
+################################################################################################################################################################
+
+3) Codigos en /home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new/ENKS_MC_LOTOS/Codes 
 
 EnKS_MC_LOTOS  --> Plots sobre states and dc of each of the city plots
 
@@ -11,7 +29,12 @@ EnKS_MC_LOTOS_V2_locate_background2D  -->  Concatenate and plot the time series 
 
 EnKS_MC_LOTOS_V2_ENKF  --> Regresa las covarianzas al dominio 2D
 
+EnKS_MC_LOTOS_V2_assimilate.m  --> Intended to be code to assimilation task
 
+
+################################################################################################################################################################
+
+4)  verificar datos satelitales
 
 Plot_satelites  -->  Generate plots of the satellite for the North Domain
 
@@ -19,16 +42,14 @@ Plot_satellites_compare  -->  comparison with the Columns of the satellite tropo
 
 Plot_satellte_sigmas_saving  -->  ERROR PLOTS
 
+Plot_satellite_sigmas_one_random_number.m  --> Code to save all the operator matrixes
+
 #################################################################################################################################################################
-Sobre los datos satelitales
+
+5) Rutina de asimilación
+
+Plot_satellite_sigmas_one_random_number_version_3_image.m
 
 
-Aquí estan los archivos que funcionan:
 
-/run/media/dirac/Datos/New_EMIP_TAMMO/EMIP/v1.2/proj/lotos-euros/rc
-
-
-Para lanzarlo se debe utilizar el siguiente comando:
-
-./bin/emip  proj/lotos-euros/rc/emip.rc
 

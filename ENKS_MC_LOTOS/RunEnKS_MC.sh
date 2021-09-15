@@ -6,7 +6,7 @@
 #==========================================================================
 #==================================================================================
 #===Path where the program is running===
-mydir='/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC/ENKS_MC_LOTOS'
+mydir='/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new/ENKS_MC_LOTOS'
 
 #===Path LOTOS-EUROS MODEL (OJO carpeta de LEKF)===
 LE='/run/media/dirac/Datos/Reciente_Dropbox/users/arjo/lotos-euros/ENKS_MC/lekf_4DEnVAR/lekf/v3.0.003-beta'
@@ -17,7 +17,7 @@ NETCDF_FORTRAN_HOME='/usr/lib64'
 #NETCDF_HOME=${OPT}'/netcdf/4.4.0'
 NETCDF_HOME=${OPT}'/home/dirac/miniconda3/pkgs/libnetcdf-4.7.3-nompi_h9f9fd6a_101'
 #===Run ID====
-runid='Prueba_numero_6_EnKS_MC'
+runid='Prueba_numero_4_EnKS_MC'
 
 if [ -f ${LE}/proj/eafit/000/rc/timerange.rc ]
 then
@@ -31,7 +31,7 @@ then
 	rm ${LE}/proj/eafit/000/rc/timerange.rc
 fi	
 start_date=20190202
-echo 'timerange.start     :  2019-02-01 16:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
+echo 'timerange.start     :  2019-02-01 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 echo 'timerange.end       :  2019-02-05 00:00:00'>>${LE}/proj/eafit/000/rc/timerange.rc
 
 #===Number of Ensembles===

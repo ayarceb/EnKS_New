@@ -1,6 +1,7 @@
 el primer código que se debe correr es RunEnKS_MC.sh
-
-
+	
+el código EnKS_MC_LOTOS.m  prtende ser el primero y más importante desde donde se corre el senamble y las rutinas de asimilación
+ 
 
 Sobre los tiempos de computo
 

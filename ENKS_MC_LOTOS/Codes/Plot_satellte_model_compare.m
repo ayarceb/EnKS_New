@@ -3,7 +3,7 @@
 
 clc;close all;clear all
 
-addpath('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC/ENKS_MC_LOTOS/Codes')
+addpath('/home/dirac/Dropbox/2020/ENKS_MC_paper/EnKS-MC/EnKS-MC_new/ENKS_MC_LOTOS/Codes')
 % Coordinates for the 59x63 array.
 % Coordenadas        (latitude,longitude)
 % Barranquilla       Latitud: 10.9878,    Longitud: -74.7889      (33,20)
@@ -340,6 +340,10 @@ for j=1:5
   subplot(2,5,j)
     y=ncread(files_xb{j},'y'); % modelo
     yr=ncread(files{j},'yr');  % tropomi
+    y(randam_obs(i,:))=nan;
+    yr(randam_obs(i,:))=nan;
+    y_model=y;
+    yr_tropomi=yr;
 %  scatter(y,yr,sz,'MarkerEdgeColor',[.5 .5 .5],...
 %               'MarkerFaceColor',[0.1 0.1 0.1],...
 %               'LineWidth',.5);
@@ -424,7 +428,7 @@ y(isnan(y)) = [];
 yr(isnan(yr)) = [];
 tbl = table(y',yr');
 mdl = fitlm(tbl,'Var1 ~ Var2')
-plotAdded(mdl,'ro')
+plotAdded(mdl)
   xlabel('Simulated retrieval mlc/cm2');
   ylabel('Tropospheric Column Density TROPOMI mlc/cm2');
   xlim([0 8])
