@@ -39,6 +39,6 @@ Carpeta con las salidas del EMIP para la region norte
 
 /run/media/dirac/Datos/TROPOMI_2019_february_LOTOS/EMIP
 
-!!
+!!!!!!!!!!!
 
 
